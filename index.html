@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Profile Analyzer — Ultimate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    
+    <div class="bg-grid"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="app-container">
+        
+        <div class="top-bar">
+            <div class="logo">GitHub Analyzer <span>Pro</span></div>
+            <button id="themeToggle" class="icon-btn" title="Toggle Theme">🌙</button>
+        </div>
+
+        <header class="header">
+            <h1>Analyze. Compare. <span>Flex.</span></h1>
+            <p>Get deep insights, compare profiles, and download your stats.</p>
+        </header>
+
+        <div class="search-wrapper">
+            <div class="search-box" id="mainSearchBox">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" id="usernameInput" placeholder="Enter username or full GitHub URL..." onkeypress="handleKeyPress(event)">
+                <button id="searchBtn" onclick="analyzeProfile()">Analyze →</button>
+            </div>
+            
+            <button class="text-btn" onclick="toggleCompareMode()">⚔️ Compare with another user</button>
+
+            <div class="search-box hidden" id="compareSearchBox">
+                <input type="text" id="compareInput" placeholder="Enter 2nd username..." onkeypress="handleKeyPress(event)">
+            </div>
+
+            <div class="recent-searches" id="recentSearches"></div>
+        </div>
+
+        <div id="loader" class="loader"><div class="spinner"></div><span>Fetching data...</span></div>
+        <div id="error" class="error-msg"></div>
+
+        <div id="captureArea">
+            <div class="dashboard" id="dashboard">
+                
+                <div class="glass-card profile-card">
+                    <div class="avatar-wrapper"><img src="" alt="Avatar" id="userAvatar"></div>
+                    <div class="profile-info">
+                        <div class="name-row">
+                            <h2 id="userName">Name</h2>
+                            <a href="#" target="_blank" class="profile-link" id="userUsername">@username</a>
+                            <div class="score-badge" id="userScoreBadge">Score: 0</div>
+                        </div>
+                        <p class="bio" id="userBio">Bio goes here...</p>
+                        <div class="meta-info"><span id="userLocation">📍 Location</span></div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="glass-card stat-card"><div class="stat-icon">📦</div><div class="stat-data"><h3 id="statRepos">0</h3><p>Repos</p></div></div>
+                    <div class="glass-card stat-card"><div class="stat-icon">⭐</div><div class="stat-data"><h3 id="statStars">0</h3><p>Stars</p></div></div>
+                    <div class="glass-card stat-card"><div class="stat-icon">👥</div><div class="stat-data"><h3 id="statFollowers">0</h3><p>Followers</p></div></div>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="glass-card chart-card">
+                        <h3 class="card-title">Top Languages</h3>
+                        <div class="chart-container"><canvas id="langChart"></canvas></div>
+                    </div>
+
+                    <div class="glass-card repos-card">
+                        <h3 class="card-title">🔥 Recent Activity</h3>
+                        <div class="activity-list" id="activityList"></div>
+                    </div>
+                </div>
+
+                <div class="glass-card repos-card mt-24">
+                    <h3 class="card-title">Trending Repositories</h3>
+                    <div class="repo-list" id="repoList"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="floating-actions" id="floatingActions">
+            <button class="float-btn" onclick="downloadImage()" title="Download as Image">📸 Download</button>
+            <button class="float-btn" onclick="window.open(document.getElementById('userUsername').href, '_blank')" title="View on GitHub">🔗 Profile</button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
